@@ -1,6 +1,5 @@
 import json
-import msvcrt
-# import getch
+import pygame
 
 def get_login_and_password():
     login = input("Enter login: ")
@@ -17,17 +16,17 @@ def save_to_file(data):
         json.dump(data, f)
     print("Credentials saved to file.")
 
-def check_function_key():
-    key = ord(msvcrt.getch())
-    if key == 59:
-        data = get_login_and_password()
-        save_to_file(data)
-    elif key == 60:
-        print("F2 pressed.")
-    elif key == 61:
-        print("F3 pressed.")
-    else:
-        print("Invalid function key.")
+pygame.init()
 
 while True:
-    check_function_key()
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_F1:
+                data = get_login_and_password()
+                save_to_file(data)
+            elif event.key == pygame.K_F2:
+                print("F2 pressed.")
+            elif event.key == pygame.K_F3:
+                print("F3 pressed.")
+            else:
+                print("Invalid function key.")
